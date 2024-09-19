@@ -37,7 +37,12 @@ use verifier::token;
 let signed_msg = token::new(message, public_key, signature);
 
 // Verify the token
-let is_valid = token::verify_token(&signed_msg, &tx_context, &mut clock);
+let is_valid = token::verify_token(&signed_msg, &clock, &mut ctx);
+
+or
+
+// Verify the token with unfolded data
+let is_valid = token::verify_token_unfold(message, public_key, signature, &clock, &mut ctx);
 
 // Check if the token is valid
 if (is_valid) {
@@ -56,14 +61,31 @@ sui move test
 
 These tests cover various scenarios and edge cases to ensure the correctness of the token verification logic.
 
-Additionally, a script called `create_test_data.sh` is provided to generate test data for the token verification tests. This script can be used to create test cases with different inputs and expected outputs, making it easier to test the token verification logic.
-To use the create_test_data script, simply run it from the command line:
+## Consuming smart contract
+The `token_verifier.sh` is provided to handle the verification of signed messages using Sui and FastCrypto. This script is designed to sign messages using the sigs-cli tool, convert them to the appropriate format, and verify the signatures against a smart contract.
 
-```Bash
-sh create_test_data.sh
+### Using token_verifier.sh
+To sign and verify messages on the Sui blockchain, follow these steps:
+Set Up: Ensure that the required tools are installed and accessible on your machine.
+Run the Script: From the command line, run the following command:
+
+```bash
+ sh token_verifier_client/token_verifier.sh
 ```
 
-This will generate a set of test data that can be used with the set of unit tests.
+This script performs the following tasks:
+
+- Loads the private key from the keystore.
+- Signs the provided message using the sigs-cli tool with the Ed25519 scheme.
+- Converts the signed message, public key, and signature into the vector<u8> format.
+- Verifies the token signature against the smart contract using the Sui client.
+
+### Customizing the Script
+You can modify the script to customize the keystore location, message, or smart contract parameters:
+
+Keystore Path: The path to your Sui keystore file.
+FastCrypto Path: Update the path to your FastCrypto installation.
+Message: Customize the message to be signed.
 
 ## Author
 Netki, ops@netki.com
