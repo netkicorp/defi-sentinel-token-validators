@@ -1,1 +1,1 @@
-# defi-sentinel-token-validators
+DeFi Sentinel consists of two primary components, the offchain API's for validation, and the on chain integrations to the smart contract so that the protocol knows that compliance has been met and can proceed.  In the below directories you can find the modules to integrate into your smart contract to recognize the signal sent by Sentinel to ensure your custom risk and compliance requirements have been met and that it safe for the contract to proceed.
