@@ -87,6 +87,34 @@ Keystore Path: The path to your Sui keystore file.
 FastCrypto Path: Update the path to your FastCrypto installation.
 Message: Customize the message to be signed.
 
+The format of the message that is creating to test is 
+
+```json
+{
+  "types": {
+    "EIP712Domain": [
+      {"name": "name", "type": "string"},
+      {"name": "version", "type": "string"}
+    ],
+    "SignedData": [
+      {"name": "signer", "type": "address"},
+      {"name": "user", "type": "address"},
+      {"name": "dateTimeOfValidation", "type": "uint256"}
+    ]
+  },
+  "primaryType": "SignedData",
+  "domain": {
+    "name": "MyDApp",
+    "version": "3.0"
+  },
+  "message": {
+    "signer": "0xeafD54E545c077ca1Bb9259fa2F90091Db96F8CC",
+    "user": "YOUR_WALLET_ADDRESS",
+    "dateTimeOfValidation": CURRENT_TIMESTAMP_IN_MILLISECONDS
+  }
+}
+```
+
 ## Author
 Netki, ops@netki.com
 
